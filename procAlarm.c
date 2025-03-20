@@ -1,6 +1,23 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
+
+char* getDigitsFromString(char* comm){
+    char* buff = malloc(1000);
+    char* p = comm;
+    int i=0;
+    while(*p){
+        if( isdigit(*p)){
+            buff[i] = *p;
+        }
+
+    }
+    return  buff;
+
+}
+
+
+
 int main(int arc, char** argv){
     
     int pid;
@@ -13,7 +30,7 @@ int main(int arc, char** argv){
     sprintf(filename, "/proc/%d/sched",pid);
     FILE *f = fopen(filename,"r");
 
-    char filteredTitle[1000];
+    char filteredstr[1000];
     int filteredNum;
     char comm[1000];
     char state;
@@ -21,19 +38,9 @@ int main(int arc, char** argv){
     int i=0;
     char *p = comm; 
     while(fgets(comm,100,f)){
-        while(*p){
-            printf("%s",p);
-            if(isdigit(*p) || ( ( (*p) == '.')&&(isdigit(*(p+1))))){
-                printf("!",*p);
-            }
-            p++;
-        }
-        printf("\n");
+        char* newFilteredStr = getDigitsFromString(comm);
+        printf("%d\n",filteredNum); 
 
-        p = comm ;
-        //sscanf(comm,"%s:%*[1234567890]",filteredTitle,&filteredNum);
-       // printf("%d, %s:%d\n",i,filteredTitle,filteredNum);
-     //   i++;
     }
     
 
